@@ -1,0 +1,6 @@
+.vscode/
+CMakeFiles
+*.cmake
+locked
+Makefile
+CMakeCache.txt

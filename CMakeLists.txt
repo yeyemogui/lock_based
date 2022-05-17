@@ -1,0 +1,5 @@
+project(Lock_Based)
+aux_source_directory(. SRC_LIST)
+include_directories(./include)
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-pthread")
+add_executable(locked ${SRC_LIST})
