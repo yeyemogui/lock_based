@@ -36,15 +36,15 @@ int main()
     queue_data.clear();
     while(true)
     {
-    std::thread a(produce_queue);
-    std::thread b(consume_queue);
-    std::thread c(consume_queue);
+        std::thread a(produce_queue);
+        std::thread b(consume_queue);
+        std::thread c(consume_queue);
     
-    a.join();
-    b.join();
-    c.join();
+        a.join();
+        b.join();
+        c.join();
     }
-    //c.join();
+
    
     return 0;
 }
