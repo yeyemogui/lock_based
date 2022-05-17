@@ -9,8 +9,8 @@ class hierarchical_mutex
         static thread_local unsigned long this_thread_hierachy_value;
         void checkViolation()
         {
-            this_thread_hierachy_value <= hierarchy_value? 
-            throw std::logic_error("mutex hierarchy violated"):;
+            if(this_thread_hierachy_value <= hierarchy_value) 
+                throw std::logic_error("mutex hierarchy violated");
         }
         void updateHierarchyValue()
         {
