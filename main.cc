@@ -11,6 +11,7 @@ void produce_queue()
     {
         queue_data.push(i);
         cout << "produce thread " << std::this_thread::get_id() << " - produced data: " << i << endl;
+        std::this_thread::sleep_for(1s);
     };
 }
 
@@ -18,15 +19,14 @@ void consume_queue()
 {
     while(true)
     {
-        auto dataPtr = queue_data.try_pop();
+        auto dataPtr = queue_data.wait_and_pop();
         if(dataPtr)
         {
             cout << "consume thread: " << std::this_thread::get_id() << " - consumed data: " << *dataPtr << endl;
         }
         else
         {
-            cout << "no data!" << endl;
-            return;
+            throw "no data!";
         }
     }
 }
@@ -34,15 +34,15 @@ void consume_queue()
 int main()
 {
     queue_data.clear();
-    while(true)
+    //while(true)
     {
         std::thread a(produce_queue);
         std::thread b(consume_queue);
-        std::thread c(consume_queue);
+       // std::thread c(consume_queue);
     
         a.join();
         b.join();
-        c.join();
+       // c.join();
     }
 
    
