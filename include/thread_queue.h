@@ -31,11 +31,11 @@ class thread_queue
             return old_head;
         }
 
-        std::unique_lock<std::mutex> wait_for_data()
+        decltype(auto) wait_for_data()
         {
             std::unique_lock<std::mutex> head_lock(head_mutex);
             data_cond.wait(head_lock, [&] {return head.get() != get_tail();});
-            return std::move(head_lock);
+            return head_lock;
         }
 
         decltype(auto) wait_pop_head()
@@ -78,4 +78,9 @@ class thread_queue
                 pop_head();
             }
         } 
+
+        ~thread_queue()
+        {
+            clear();
+        }
 };
